@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+</head>
+
+<body>
+    <div>
+        帳號<input type="text" placeholder="請輸入帳號">
+    </div>
+    <div>
+        密碼<input type="text" placeholder="請輸入密碼">
+    </div>
+    <div>
+        <button>登入</button>
+    </div>
+    <ul class="list">
+
+    </ul>
+
+    <script>
+        const btn = document.querySelector("button")
+        btn.addEventListener("click", () => {
+            fetch("/api/home")
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    render(res);
+                })
+                .catch(err => console.log(err))
+        })
+
+        function render(data) {
+            console.log(data);
+            const returnData = data.map(item =>{
+               return `<li>${item}</li>`
+            })
+            console.log(returnData);
+            console.log(returnData.join(""));
+            const list = document.querySelector(".list")
+            list.innerHTML = returnData.join("");
+        }
+
+    </script>
+</body>
+
+</html>
